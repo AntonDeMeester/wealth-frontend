@@ -56,6 +56,9 @@ const slice = createSlice({
             state.isModalOpen = false;
             state.selectedPositionId = null;
         },
+        removePosition: (state: StocksState, action: PayloadAction<string>) => {
+            state.positions = positionsAdapter.removeOne(state.positions, action.payload);
+        },
     },
 });
 
@@ -107,6 +110,13 @@ export function editPosition(positionId: string, position: EditStockPosition): A
     };
 }
 
+export function deletePosition(positionId: string): AppThunk {
+    return async (dispatch): Promise<void> => {
+        await stockService.deletePosition(positionId);
+        dispatch(slice.actions.removePosition(positionId));
+    };
+}
+
 export const selectPosition =
     (positionId: string): AppThunk =>
     async (dispatch): Promise<void> => {
@@ -130,5 +140,5 @@ export const closeModal =
     (dispatch): void => {
         dispatch(slice.actions.closeModal());
     };
-
+    
 export default slice;

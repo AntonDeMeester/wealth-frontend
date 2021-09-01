@@ -23,15 +23,16 @@ import {
 import PencilAltIcon from "../../../icons/PencilAlt";
 import Scrollbar from "../../Scrollbar";
 // import OrderListBulkActions from "../order/OrderListBulkActions";
-import { Account } from "src/types/banking";
 import { StockPosition } from "src/types/stocks";
 import { applyPaginations } from "src/utils/paginations";
 import moment from "moment";
 import StockModal from "src/components/dashboard/stocks/StockModal";
+import Trash from "src/icons/Trash";
 
 interface OrderListTableProps {
     positions: StockPosition[];
     onSelectionChange?: (selectedPositions: string[]) => void;
+    onDeletePosition?: (deletedPosition: StockPosition) => void;
 }
 
 const getPercentIncrease = (position: StockPosition): number =>
@@ -40,8 +41,7 @@ const getPercentIncrease = (position: StockPosition): number =>
 const calculateIRR = (position: StockPosition): number =>
     Math.pow(getPercentIncrease(position) + 1, 1 / (moment().diff(moment(position.startDate), "days") / 365)) - 1;
 
-const OrderListTable: FC<OrderListTableProps> = (props) => {
-    const { positions, onSelectionChange, ...other } = props;
+const OrderListTable: FC<OrderListTableProps> = ({ positions, onSelectionChange, onDeletePosition, ...other }) => {
     const [selectedPositions, setSelectedPositions] = useState<string[]>([]);
     const [page, setPage] = useState<number>(0);
     const [limit, setLimit] = useState<number>(10);
@@ -171,6 +171,9 @@ const OrderListTable: FC<OrderListTableProps> = (props) => {
                                             <TableCell align="right">
                                                 <IconButton onClick={() => openModal(position)}>
                                                     <PencilAltIcon fontSize="small" />
+                                                </IconButton>
+                                                <IconButton onClick={() => onDeletePosition?.(position)}>
+                                                    <Trash fontSize="small" />
                                                 </IconButton>
                                             </TableCell>
                                         </TableRow>

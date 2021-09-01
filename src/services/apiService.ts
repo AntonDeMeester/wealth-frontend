@@ -52,6 +52,14 @@ class ApiService {
         });
     }
 
+    public async delete<ResponseType>(
+        endpoint: string,
+        data: any = {},
+        headers: Headers = {}
+    ): Promise<AxiosResponse<ResponseType>> {
+        return axiosInstance.delete<ResponseType>(endpoint);
+    }
+
     public addRequestInterceptor(
         interceptor: (request: AxiosRequestConfig) => AxiosRequestConfig,
         errorInterceptor?: (error: AxiosError) => Promise<AxiosRequestConfig>

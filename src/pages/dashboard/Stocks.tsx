@@ -5,14 +5,12 @@ import { Helmet } from "react-helmet-async";
 import { Box, Breadcrumbs, Button, Container, Grid, Link, Typography } from "@material-ui/core";
 import { StockGraph, StockTable } from "../../components/dashboard/stocks";
 import useSettings from "../../hooks/useSettings";
-import ChevronDownIcon from "../../icons/ChevronDown";
 import ChevronRightIcon from "../../icons/ChevronRight";
 import { useDispatch, useSelector } from "../../store";
-import { getPositionsWithBalances, selectAllPositions } from "src/slices/stocks";
-import StockModal from "src/components/dashboard/stocks/StockModal";
+import { getPositionsWithBalances, selectAllPositions, deletePosition } from "src/slices/stocks";
 import SearchTickerModal from "src/components/dashboard/stocks/SearchTickerModal";
 import NewStockModal from "src/components/dashboard/stocks/NewStockModal";
-import { TickerSearchItem } from "src/types/stocks";
+import { StockPosition, TickerSearchItem } from "src/types/stocks";
 
 const Stocks: FC = () => {
     const { settings } = useSettings();
@@ -46,6 +44,7 @@ const Stocks: FC = () => {
     }, []);
 
     const selectedPositionChanged = (selected: string[]) => setSelectedPositions(selected);
+    const onPositionDeleted = (position: StockPosition) => dispatch(deletePosition(position.positionId))
 
     return (
         <>
@@ -98,7 +97,7 @@ const Stocks: FC = () => {
                         />
                     </Box>
                     <Box>
-                        <StockTable positions={positions} onSelectionChange={selectedPositionChanged} />
+                        <StockTable positions={positions} onSelectionChange={selectedPositionChanged} onDeletePosition={onPositionDeleted} />
                     </Box>
                 </Container>
             </Box>

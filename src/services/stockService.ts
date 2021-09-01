@@ -33,6 +33,10 @@ class StockService {
         return await apiService.patch<StockPosition>(`${this.routes.positions}/${positionId}`, updatedPosition);
     }
 
+    public async deletePosition(positionId: string): Promise<AxiosResponse<void>> {
+        return await apiService.delete<void>(`${this.routes.positions}/${positionId}`);
+    }
+
     public async getPositionBalances(positionId: string): Promise<AxiosResponse<WealthItem[]>> {
         return await apiService.get<WealthItem[]>(`${this.routes.positions}/${positionId}/balances`);
     }
