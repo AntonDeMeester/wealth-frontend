@@ -22,3 +22,17 @@ export interface Account {
     isActive: boolean;
     balances?: WealthItem[];
 }
+
+export interface TinkLinkParameters {
+    market: string;
+    test: string | undefined;
+}
+
+export interface TinkLinkResponse {
+    url: string;
+}
+
+export interface TinkLinkCallbackParameters {
+    code?: string;
+    credentialsId?: string;
+}

@@ -9,18 +9,44 @@ import ChevronDownIcon from "../../icons/ChevronDown";
 import ChevronRightIcon from "../../icons/ChevronRight";
 import { useDispatch, useSelector } from "../../store";
 import { getAccountsWithBalances, selectAllAccounts } from "src/slices/banking";
+import AddBankModal from "src/components/dashboard/banks/AddBankModal";
+import { useLocation } from "react-router";
+import bankService from "src/services/bankService";
 
 const Banks: FC = () => {
+    const location = useLocation();
     const { settings } = useSettings();
     const dispatch = useDispatch();
     const accounts = useSelector((state) => selectAllAccounts(state.banking));
     const [selectedAccounts, setSelectedAccounts] = useState<string[]>([]);
+    const [tinkModalOpen, setTinkModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
         dispatch(getAccountsWithBalances());
     }, []);
 
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const code = queryParams.get("code");
+        const credentialsId = queryParams.get("credentialsId");
+        if (!code && !credentialsId) {
+            return;
+        }
+        const processTinkCode = async () => {
+            await bankService.tinkCallback({ code, credentialsId });
+            // navigate("/dashboard/banks");
+        };
+        processTinkCode();
+    }, [location]);
+
     const selectedAccountsChanged = (selected: string[]) => setSelectedAccounts(selected);
+
+    const openAddBankModal = () => {
+        setTinkModalOpen(true);
+    };
+    const closeBankModal = () => {
+        setTinkModalOpen(false);
+    };
 
     return (
         <>
@@ -53,16 +79,17 @@ const Banks: FC = () => {
                                 </Typography>
                             </Breadcrumbs>
                         </Grid>
-                        {/* <Grid item>
+                        <Grid item>
                             <Button
                                 color="primary"
-                                endIcon={<ChevronDownIcon fontSize="small" />}
+                                // endIcon={<ChevronDownIcon fontSize="small" />}
                                 sx={{ ml: 2 }}
                                 variant="contained"
+                                onClick={openAddBankModal}
                             >
-                                Last month
+                                Add Bank
                             </Button>
-                        </Grid> */}
+                        </Grid>
                     </Grid>
                     <Box sx={{ py: 3 }}>
                         <AccountsGraph
@@ -76,6 +103,7 @@ const Banks: FC = () => {
                     </Box>
                 </Container>
             </Box>
+            <AddBankModal open={tinkModalOpen} onClose={closeBankModal} />
         </>
     );
 };

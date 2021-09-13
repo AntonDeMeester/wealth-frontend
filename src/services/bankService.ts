@@ -1,5 +1,12 @@
 import { AxiosResponse } from "axios";
-import { Account, EditAccount, WealthItem } from "src/types/banking";
+import {
+    Account,
+    EditAccount,
+    TinkLinkCallbackParameters,
+    TinkLinkParameters,
+    TinkLinkResponse,
+    WealthItem,
+} from "src/types/banking";
 import apiService from "./apiService";
 
 class BankService {
@@ -8,6 +15,12 @@ class BankService {
         balances: `${this.basePath}/balances`,
         accounts: `${this.basePath}/accounts`,
         accountBalances: `${this.basePath}/accounts/{account}/balances`,
+    };
+
+    private tinkBaseBath = "tink";
+    private tinkRoutes = {
+        tinkLink: `${this.tinkBaseBath}/bank`,
+        tinkCallback: `${this.tinkBaseBath}/callback`,
     };
 
     public async getBalances(): Promise<AxiosResponse<WealthItem[]>> {
@@ -28,6 +41,14 @@ class BankService {
 
     public async getAccountBalances(accountId: string): Promise<AxiosResponse<WealthItem[]>> {
         return await apiService.get<WealthItem[]>(`${this.routes.accounts}/${accountId}/balances`);
+    }
+
+    public async getTinkLink(params: TinkLinkParameters): Promise<AxiosResponse<TinkLinkResponse>> {
+        return await apiService.get<TinkLinkResponse>(`${this.tinkRoutes.tinkLink}`, undefined, { ...params });
+    }
+
+    public async tinkCallback(params: TinkLinkCallbackParameters): Promise<AxiosResponse<{}>> {
+        return await apiService.post<{}>(`${this.tinkRoutes.tinkCallback}`, params);
     }
 }
 
