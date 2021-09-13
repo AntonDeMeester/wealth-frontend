@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ChangeEvent, FC, MouseEvent } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { format } from "date-fns";
 import numeral from "numeral";
 import PropTypes from "prop-types";
 import {
@@ -63,7 +62,7 @@ const AccountsTable: FC<AccountsTableProps> = (props) => {
             setSelectedAccounts((prevSelected) => prevSelected.filter((id) => id !== orderId));
         }
     };
-    useEffect(() => onSelectionChange && onSelectionChange(selectedAccounts), [selectedAccounts]);
+    useEffect(() => onSelectionChange && onSelectionChange(selectedAccounts), [selectedAccounts, onSelectionChange]);
 
     const handlePageChange = (event: MouseEvent<HTMLButtonElement> | null, newPage: number): void => {
         setPage(newPage);

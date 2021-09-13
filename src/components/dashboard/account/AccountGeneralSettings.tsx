@@ -20,14 +20,10 @@ import {
     TextField,
     Typography,
 } from "@material-ui/core";
-import useAuth from "../../../hooks/useAuth";
 import wait from "../../../utils/wait";
 import countries from "./countries";
 
 const AccountGeneralSettings: FC = (props) => {
-    const {} = useAuth();
-    const user = {};
-
     return (
         <Grid container spacing={3} {...props}>
             <Grid item lg={4} md={6} xl={3} xs={12}>

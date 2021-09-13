@@ -1,12 +1,9 @@
-import { useState } from "react";
 import type { FC } from "react";
 import type { ApexOptions } from "apexcharts";
 import Chart from "react-apexcharts";
-import { Box, Card, CardHeader, Tooltip, Typography } from "@material-ui/core";
+import { Box, Card, CardHeader, Typography } from "@material-ui/core";
 import type { CardProps } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import InformationCircleIcon from "../../../icons/InformationCircle";
-import { Account } from "src/types/banking";
 import moment from "moment";
 import dataService from "src/services/dataService";
 import { formatCurrency } from "src/services/formatService";

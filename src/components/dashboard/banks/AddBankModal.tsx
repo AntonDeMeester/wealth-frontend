@@ -1,10 +1,7 @@
 import type { FC } from "react";
-import { Box, Button, Dialog, TextField, Switch, FormControlLabel } from "@material-ui/core";
-import { useDispatch } from "../../../store";
-import { Account, EditAccount } from "src/types/banking";
+import { Box, Button, Dialog, TextField } from "@material-ui/core";
 import * as yup from "yup";
 import { Formik } from "formik";
-import { editAccount } from "src/slices/banking";
 import bankService from "src/services/bankService";
 
 interface AddBankModalProps {

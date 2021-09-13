@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import type { FC } from "react";
 import { useRoutes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
@@ -7,7 +6,6 @@ import "./i18n";
 import RTL from "./components/RTL";
 import SettingsDrawer from "./components/SettingsDrawer";
 import SplashScreen from "./components/SplashScreen";
-import { gtmConfig } from "./config";
 import useAuth from "./hooks/useAuth";
 import useScrollReset from "./hooks/useScrollReset";
 import useSettings from "./hooks/useSettings";

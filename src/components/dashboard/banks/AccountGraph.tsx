@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { FC } from "react";
 import type { ApexOptions } from "apexcharts";
 import Chart from "react-apexcharts";

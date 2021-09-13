@@ -6,10 +6,7 @@ import { experimentalStyled } from "@material-ui/core/styles";
 import type { AppBarProps } from "@material-ui/core";
 import MenuIcon from "../../icons/Menu";
 import AccountPopover from "./AccountPopover";
-import ContentSearch from "./ContentSearch";
-import LanguagePopover from "./LanguagePopover";
 import Logo from "../Logo";
-import NotificationsPopover from "./NotificationsPopover";
 
 interface DashboardNavbarProps extends AppBarProps {
     onSidebarMobileOpen?: () => void;

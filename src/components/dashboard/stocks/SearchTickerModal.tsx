@@ -1,10 +1,6 @@
 import { ChangeEvent, FC, useState } from "react";
-import { Box, Button, Dialog, TextField, Switch, FormControlLabel } from "@material-ui/core";
-import { useDispatch } from "../../../store";
-import * as yup from "yup";
-import { Formik } from "formik";
-import { editPosition } from "src/slices/stocks";
-import { EditStockPosition, StockPosition, TickerSearchItem } from "src/types/stocks";
+import { Box, Button, Dialog, TextField } from "@material-ui/core";
+import { TickerSearchItem } from "src/types/stocks";
 import stockService from "src/services/stockService";
 import * as _ from "lodash";
 
@@ -14,17 +10,9 @@ interface SearchTickerModalProps {
     onTickerSelected?: (ticker: TickerSearchItem) => void;
 }
 
-interface SearchTickerForm {
-    searchQuery: string;
-}
-
 const SearchTickerModal: FC<SearchTickerModalProps> = ({ open, onClose, onTickerSelected }) => {
     const [matchedPositions, setMatchedPositions] = useState<TickerSearchItem[]>([]);
     const [errorMessage, setErrorMessage] = useState<string>("");
-
-    const validationSchema = yup.object().shape({
-        searchQuery: yup.string(),
-    });
 
     const searchTickers = _.debounce(async (event: ChangeEvent<{ value?: string }>) => {
         const ticker = event.target?.value;

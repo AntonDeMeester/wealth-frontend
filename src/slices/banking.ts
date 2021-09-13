@@ -1,7 +1,7 @@
 import { createSlice, EntityState } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createEntityAdapter } from "@reduxjs/toolkit";
-import { Account, EditAccount, WealthItem } from "src/types/banking";
+import { Account, EditAccount } from "src/types/banking";
 import { AppThunk } from "src/store";
 import { bankService } from "../services/bankService";
 

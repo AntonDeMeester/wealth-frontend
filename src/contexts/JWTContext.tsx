@@ -1,7 +1,6 @@
 import { createContext, useEffect, useReducer } from "react";
 import type { FC, ReactNode } from "react";
 import PropTypes from "prop-types";
-import type { User } from "../types/user";
 import { authService } from "../services/authService";
 import { CreateUser } from "src/types/auth";
 

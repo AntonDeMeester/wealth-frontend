@@ -5,7 +5,6 @@ import { Helmet } from "react-helmet-async";
 import { Box, Breadcrumbs, Button, Container, Grid, Link, Typography } from "@material-ui/core";
 import { AccountsGraph, AccountsTable } from "../../components/dashboard/banks";
 import useSettings from "../../hooks/useSettings";
-import ChevronDownIcon from "../../icons/ChevronDown";
 import ChevronRightIcon from "../../icons/ChevronRight";
 import { useDispatch, useSelector } from "../../store";
 import { getAccountsWithBalances, selectAllAccounts } from "src/slices/banking";
