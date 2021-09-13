@@ -1,0 +1,24 @@
+name: s3-depl
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: eu-west-1
+            - name: Build React App
+              run: npm i --no-optional && npm run build
+            - name: Deploy app build to S3 bucket
+              run: aws s3 sync ./build/ s3://wealth.illuminatus.be --delete
+            - name: Invalidate current CloudFront
+              run: aws cloudfront create-invalidation --distribution-id E1FNEOEQQDMVDF --paths "/*"
