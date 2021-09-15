@@ -7,6 +7,7 @@ export function useDebounceSelector<T extends (...args: any) => any>(
     equalFn?: EqualFn<ReturnType<T>>,
     time = 500
 ): ReturnType<T> {
+    // eslint-disable-next-line
     const [_, setSate] = useState();
     const refData = useRef<any>();
     const refTimeout = useRef<any>();

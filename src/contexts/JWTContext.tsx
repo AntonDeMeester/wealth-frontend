@@ -9,6 +9,10 @@ interface State {
     isAuthenticated: boolean;
 }
 
+interface Payload {
+    [key: string]: any;
+}
+
 interface AuthContextValue extends State {
     platform: "JWT";
     login: (email: string, password: string) => Promise<void>;
@@ -29,7 +33,7 @@ type InitializeAction = {
 
 type LoginAction = {
     type: "LOGIN";
-    payload: object;
+    payload: Payload;
 };
 
 type LogoutAction = {
@@ -38,7 +42,7 @@ type LogoutAction = {
 
 type RegisterAction = {
     type: "REGISTER";
-    payload: object;
+    payload: Payload;
 };
 
 type Action = InitializeAction | LoginAction | LogoutAction | RegisterAction;
@@ -58,9 +62,7 @@ const handlers: Record<string, (state: State, action: Action) => State> = {
             isInitialized: true,
         };
     },
-    LOGIN: (state: State, action: LoginAction): State => {
-        const {} = action.payload;
-
+    LOGIN: (state: State): State => {
         return {
             ...state,
             isAuthenticated: true,
@@ -70,9 +72,7 @@ const handlers: Record<string, (state: State, action: Action) => State> = {
         ...state,
         isAuthenticated: false,
     }),
-    REGISTER: (state: State, action: RegisterAction): State => {
-        const {} = action.payload;
-
+    REGISTER: (state: State): State => {
         return {
             ...state,
             isAuthenticated: false,
