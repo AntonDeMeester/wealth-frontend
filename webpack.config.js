@@ -1,16 +1,12 @@
+// Node import
 const path = require('path');
 
-module.exports = (env) => {
-  // Use env.<YOUR VARIABLE> here:
-  console.log('Goal: ', env.goal); // 'local'
-  console.log('Production: ', env.production); // true
+const webpack = require('webpack');
 
-  return {
-    entry: './src/index.js',
-    output: {
-      filename: 'bundle.js',
-      path: path.resolve(__dirname, 'dist'),
-    },
-  };
-};
-Tip
+require('dotenv').config();
+
+module.exports = [
+   plugins: [
+    new webpack.EnvironmentPlugin(['NODE_ENV', 'ENV'])
+  ],
+]
