@@ -146,12 +146,12 @@ const AccountsTable: FC<AccountsTableProps> = (props) => {
                                             </TableCell>
                                             <TableCell>
                                                 {`${account.currency} ${numeral(
-                                                    account.balances?.[account.balances.length - 1].amount
+                                                    account.balances?.[account.balances?.length || 1 - 1]?.amount
                                                 ).format("0,0.00")}`}
                                             </TableCell>
                                             <TableCell>
                                                 {`€ ${numeral(
-                                                    account.balances?.[account.balances.length - 1].amount
+                                                    account.balances?.[account.balances?.length || 1 - 1]?.amount
                                                 ).format("0,0.00")}`}
                                             </TableCell>
                                             <TableCell>{account.type}</TableCell>

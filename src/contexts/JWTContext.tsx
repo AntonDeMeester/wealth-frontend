@@ -148,7 +148,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
     };
 
     const register = async (user: CreateUser): Promise<void> => {
-        authService.register(user);
+        await authService.register(user);
 
         dispatch({
             type: "REGISTER",

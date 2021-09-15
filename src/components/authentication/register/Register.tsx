@@ -4,9 +4,11 @@ import { Formik } from "formik";
 import { Box, Button, Checkbox, FormHelperText, TextField, Typography, Link } from "@material-ui/core";
 import useAuth from "../../../hooks/useAuth";
 import useMounted from "../../../hooks/useMounted";
+import { useNavigate } from "react-router";
 
 const RegisterJWT: FC = (props) => {
     const mounted = useMounted();
+    const navigate = useNavigate();
     const { register } = useAuth() as any;
 
     return (
@@ -31,6 +33,7 @@ const RegisterJWT: FC = (props) => {
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }): Promise<void> => {
                 try {
                     await register(values);
+                    navigate("/auth/login");
 
                     if (mounted.current) {
                         setStatus({ success: true });

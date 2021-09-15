@@ -27,7 +27,7 @@ class AuthService {
     }
 
     public async register(user: CreateUser): Promise<AxiosResponse<UserResponse>> {
-        return apiService.post<UserResponse>(this.routes.register, user);
+        return await apiService.post<UserResponse>(this.routes.register, user);
     }
 
     public async refreshToken(): Promise<AxiosResponse<RefreshResponse>> {
