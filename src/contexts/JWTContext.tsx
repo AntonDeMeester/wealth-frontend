@@ -29,7 +29,7 @@ type InitializeAction = {
 
 type LoginAction = {
     type: "LOGIN";
-    payload: {};
+    payload: object;
 };
 
 type LogoutAction = {
@@ -38,7 +38,7 @@ type LogoutAction = {
 
 type RegisterAction = {
     type: "REGISTER";
-    payload: {};
+    payload: object;
 };
 
 type Action = InitializeAction | LoginAction | LogoutAction | RegisterAction;

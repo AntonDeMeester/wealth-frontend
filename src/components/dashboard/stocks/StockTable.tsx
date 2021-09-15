@@ -70,7 +70,7 @@ const OrderListTable: FC<OrderListTableProps> = ({ positions, onSelectionChange,
         }
     };
     // Update selected position callback to parent
-    useEffect(() => onSelectionChange && onSelectionChange(selectedPositions), [selectedPositions]);
+    useEffect(() => onSelectionChange && onSelectionChange(selectedPositions), [selectedPositions, onSelectionChange]);
 
     const handlePageChange = (event: MouseEvent<HTMLButtonElement> | null, newPage: number): void => {
         setPage(newPage);

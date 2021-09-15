@@ -22,7 +22,7 @@ const Banks: FC = () => {
 
     useEffect(() => {
         dispatch(getAccountsWithBalances());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);

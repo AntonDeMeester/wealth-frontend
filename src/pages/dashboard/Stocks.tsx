@@ -41,10 +41,10 @@ const Stocks: FC = () => {
 
     useEffect(() => {
         dispatch(getPositionsWithBalances());
-    }, []);
+    }, [dispatch]);
 
     const selectedPositionChanged = (selected: string[]) => setSelectedPositions(selected);
-    const onPositionDeleted = (position: StockPosition) => dispatch(deletePosition(position.positionId))
+    const onPositionDeleted = (position: StockPosition) => dispatch(deletePosition(position.positionId));
 
     return (
         <>
@@ -97,7 +97,11 @@ const Stocks: FC = () => {
                         />
                     </Box>
                     <Box>
-                        <StockTable positions={positions} onSelectionChange={selectedPositionChanged} onDeletePosition={onPositionDeleted} />
+                        <StockTable
+                            positions={positions}
+                            onSelectionChange={selectedPositionChanged}
+                            onDeletePosition={onPositionDeleted}
+                        />
                     </Box>
                 </Container>
             </Box>
