@@ -56,6 +56,9 @@ const slice = createSlice({
             state.isModalOpen = false;
             state.selectedAccountId = null;
         },
+        removeAllAccounts(state: BankingState): void {
+            state.accounts = accountsAdapter.removeAll(state.accounts);
+        },
     },
 });
 
@@ -98,6 +101,12 @@ export function editAccount(accountId: string, account: EditAccount): AppThunk {
     return async (dispatch): Promise<void> => {
         const response = await bankService.updateAccount(accountId, account);
         dispatch(slice.actions.upsertAccount(response.data));
+    };
+}
+
+export function removeAllAccounts(): AppThunk {
+    return async (dispatch): Promise<void> => {
+        dispatch(slice.actions.removeAllAccounts());
     };
 }
 

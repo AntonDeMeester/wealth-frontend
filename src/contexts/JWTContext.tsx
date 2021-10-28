@@ -1,90 +1,27 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect } from "react";
 import type { FC, ReactNode } from "react";
 import PropTypes from "prop-types";
 import { authService } from "../services/authService";
 import { CreateUser } from "src/types/auth";
+import { useDispatch, useSelector } from "src/store";
+import * as authSlice from "src/slices/auth"
+import {removeAllPositions} from "src/slices/stocks"
+import { removeAllAccounts } from "src/slices/banking";
 
-interface State {
-    isInitialized: boolean;
-    isAuthenticated: boolean;
+interface AuthProviderProps {
+    children: ReactNode;
 }
 
-interface Payload {
-    [key: string]: any;
-}
-
-interface AuthContextValue extends State {
+interface AuthContextValue extends authSlice.AuthState {
     platform: "JWT";
     login: (email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
     register: (user: CreateUser) => Promise<void>;
 }
 
-interface AuthProviderProps {
-    children: ReactNode;
-}
-
-type InitializeAction = {
-    type: "INITIALIZE";
-    payload: {
-        isAuthenticated: boolean;
-    };
-};
-
-type LoginAction = {
-    type: "LOGIN";
-    payload: Payload;
-};
-
-type LogoutAction = {
-    type: "LOGOUT";
-};
-
-type RegisterAction = {
-    type: "REGISTER";
-    payload: Payload;
-};
-
-type Action = InitializeAction | LoginAction | LogoutAction | RegisterAction;
-
-const initialState: State = {
-    isAuthenticated: false,
-    isInitialized: false,
-};
-
-const handlers: Record<string, (state: State, action: Action) => State> = {
-    INITIALIZE: (state: State, action: InitializeAction): State => {
-        const { isAuthenticated } = action.payload;
-
-        return {
-            ...state,
-            isAuthenticated,
-            isInitialized: true,
-        };
-    },
-    LOGIN: (state: State): State => {
-        return {
-            ...state,
-            isAuthenticated: true,
-        };
-    },
-    LOGOUT: (state: State): State => ({
-        ...state,
-        isAuthenticated: false,
-    }),
-    REGISTER: (state: State): State => {
-        return {
-            ...state,
-            isAuthenticated: false,
-        };
-    },
-};
-
-const reducer = (state: State, action: Action): State =>
-    handlers[action.type] ? handlers[action.type](state, action) : state;
 
 const AuthContext = createContext<AuthContextValue>({
-    ...initialState,
+    ...authSlice.initialState,
     platform: "JWT",
     login: () => Promise.resolve(),
     logout: () => Promise.resolve(),
@@ -93,7 +30,8 @@ const AuthContext = createContext<AuthContextValue>({
 
 export const AuthProvider: FC<AuthProviderProps> = (props) => {
     const { children } = props;
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const dispatch = useDispatch();
+    const authState = useSelector(state => state.auth)
 
     useEffect(() => {
         const initialize = async (): Promise<void> => {
@@ -101,33 +39,18 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
                 const accessToken = authService.getAccessToken();
 
                 if (accessToken) {
-                    dispatch({
-                        type: "INITIALIZE",
-                        payload: {
-                            isAuthenticated: true,
-                        },
-                    });
+                    dispatch(authSlice.initialize(true));
                 } else {
-                    dispatch({
-                        type: "INITIALIZE",
-                        payload: {
-                            isAuthenticated: false,
-                        },
-                    });
+                    dispatch(authSlice.initialize(false));
                 }
             } catch (err) {
                 console.error(err);
-                dispatch({
-                    type: "INITIALIZE",
-                    payload: {
-                        isAuthenticated: false,
-                    },
-                });
+                dispatch(authSlice.initialize(false));
             }
         };
 
         initialize();
-    }, []);
+    }, [dispatch]);
 
     const login = async (email: string, password: string): Promise<void> => {
         const loggedIn = await authService.login({ email, password });
@@ -135,31 +58,24 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
         if (!loggedIn) {
             return;
         }
-
-        dispatch({
-            type: "LOGIN",
-            payload: {},
-        });
+        dispatch(authSlice.login());
     };
 
     const logout = async (): Promise<void> => {
-        authService.logout();
-        dispatch({ type: "LOGOUT" });
+        dispatch(authSlice.logout());
+        dispatch(removeAllPositions());
+        dispatch(removeAllAccounts());
     };
 
     const register = async (user: CreateUser): Promise<void> => {
         await authService.register(user);
-
-        dispatch({
-            type: "REGISTER",
-            payload: {},
-        });
+        dispatch(authSlice.register());
     };
 
     return (
         <AuthContext.Provider
             value={{
-                ...state,
+                ...authState,
                 platform: "JWT",
                 login,
                 logout,

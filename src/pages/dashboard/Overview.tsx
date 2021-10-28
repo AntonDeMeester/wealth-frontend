@@ -22,8 +22,14 @@ const mapItems = (items: WealthItem[]) => {
 const Overview: FC = () => {
     const dispatch = useDispatch();
 
-    const bankBalances = mapItems(useDebounceSelector((state) => selectAllBankBalances(state.banking), isEqual)) || [];
-    const stockBalances = mapItems(useDebounceSelector((state) => selectAllStockBalances(state.stocks), isEqual)) || [];
+    const bankBalances = dataService.getItemsOfLastXMonths(
+        mapItems(useDebounceSelector((state) => selectAllBankBalances(state.banking), isEqual)) || [],
+        24
+    );
+    const stockBalances = dataService.getItemsOfLastXMonths(
+        mapItems(useDebounceSelector((state) => selectAllStockBalances(state.stocks), isEqual)) || [],
+        24
+    );
 
     const { settings } = useSettings();
 

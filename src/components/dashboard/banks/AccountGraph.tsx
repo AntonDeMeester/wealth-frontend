@@ -40,7 +40,10 @@ const AccountGraph: FC<GraphProps> = ({ accounts, selectedAccounts, ...props }) 
     const graphData = dataList
         .map((item) => ({
             ...item,
-            balances: dataService.addEmptyDates(item.balances, Array.from(allDates.values())),
+            balances: dataService.getItemsOfLastXMonths(
+                dataService.addEmptyDates(item.balances, Array.from(allDates.values())),
+                24
+            ),
         }))
         .map((item) => ({
             id: item.id,

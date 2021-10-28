@@ -20,7 +20,12 @@ const StockGraph: FC<GraphProps> = ({ positions, selectedPositions, ...props }) 
         ? positions.filter((pos) => selectedPositions.includes(pos.positionId))
         : positions;
     const data = dataService
-        .sumByDay(relevantPositions.reduce((balances, position) => balances.concat(position.balances || []), []))
+        .getItemsOfLastXMonths(
+            dataService.sumByDay(
+                relevantPositions.reduce((balances, position) => balances.concat(position.balances || []), [])
+            ), 
+            24
+        )
         .sort((a, b) => moment(a.date).diff(moment(b.date)))
         .map((d) => ({ x: d.date, y: d.amountInEuro }));
     const graphData = [{ name: "Total", data }];

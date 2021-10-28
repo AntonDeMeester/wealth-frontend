@@ -59,6 +59,9 @@ const slice = createSlice({
         removePosition: (state: StocksState, action: PayloadAction<string>) => {
             state.positions = positionsAdapter.removeOne(state.positions, action.payload);
         },
+        removeAllPositions: (state: StocksState, action: PayloadAction<string>) => {
+            state.positions = positionsAdapter.removeAll(state.positions);
+        },
     },
 });
 
@@ -140,5 +143,10 @@ export const closeModal =
     (dispatch): void => {
         dispatch(slice.actions.closeModal());
     };
-    
+export const removeAllPositions =
+    (): AppThunk =>
+    (dispatch): void => {
+        dispatch(slice.actions.removeAllPositions());
+    };
+
 export default slice;
