@@ -50,12 +50,6 @@ const DashboardSidebar: FC<DashboardSidebarProps> = (props) => {
     const location = useLocation();
     const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
 
-    useEffect(() => {
-        if (openMobile && onMobileClose) {
-            onMobileClose();
-        }
-    }, [location.pathname, onMobileClose, openMobile]);
-
     const content = (
         <Box
             sx={{

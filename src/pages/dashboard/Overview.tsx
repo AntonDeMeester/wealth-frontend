@@ -16,7 +16,6 @@ import { isEqual } from "lodash";
 import OverviewPie from "src/components/dashboard/overview/OverviewPie";
 
 const mapItems = (items: WealthItem[]) => {
-    console.log("Hello world");
     return dataService.sumByDay(items || []).sort((a, b) => moment(a.date).diff(b.date));
 };
 

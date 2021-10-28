@@ -11,12 +11,13 @@ import { getAccountsWithBalances, selectAllAccounts } from "src/slices/banking";
 import AddBankModal from "src/components/dashboard/banks/AddBankModal";
 import { useLocation } from "react-router";
 import bankService from "src/services/bankService";
+import { useDebounceSelector } from "src/utils/debouncedSelector";
 
 const Banks: FC = () => {
     const location = useLocation();
     const { settings } = useSettings();
     const dispatch = useDispatch();
-    const accounts = useSelector((state) => selectAllAccounts(state.banking));
+    const accounts = useDebounceSelector((state) => selectAllAccounts(state.banking));
     const [selectedAccounts, setSelectedAccounts] = useState<string[]>([]);
     const [tinkModalOpen, setTinkModalOpen] = useState<boolean>(false);
 

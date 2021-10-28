@@ -11,11 +11,12 @@ import { getPositionsWithBalances, selectAllPositions, deletePosition } from "sr
 import SearchTickerModal from "src/components/dashboard/stocks/SearchTickerModal";
 import NewStockModal from "src/components/dashboard/stocks/NewStockModal";
 import { StockPosition, TickerSearchItem } from "src/types/stocks";
+import { useDebounceSelector } from "src/utils/debouncedSelector";
 
 const Stocks: FC = () => {
     const { settings } = useSettings();
     const dispatch = useDispatch();
-    const positions = useSelector((state) => selectAllPositions(state.stocks));
+    const positions = useDebounceSelector((state) => selectAllPositions(state.stocks));
     const [selectedPositions, setSelectedPositions] = useState<string[]>([]);
     const [searchModalOpen, setSearchModalOpen] = useState<boolean>(false);
     const [newPositionModalOpen, setNewPositionModalOpen] = useState<boolean>(false);

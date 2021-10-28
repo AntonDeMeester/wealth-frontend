@@ -1,10 +1,11 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import store from "src/store";
 
 import config from "../config/index";
 import apiService from "./apiService";
 import authService from "./authService";
 
-const jwtExpiredData = "Signature has expired";
+const jwtExpiredData = ["Signature has expired", "Signature verification failed"] 
 
 const isNormalWealthRequest = (request: AxiosRequestConfig) => {
     if (request.baseURL !== config.host && !request.url?.startsWith(config.host)) {
@@ -44,7 +45,7 @@ async function refreshJwt(error: AxiosError): Promise<AxiosResponse> {
     // @ts-ignore
     if (
         error.response?.status === 422 &&
-        error.response.data?.detail === jwtExpiredData &&
+        jwtExpiredData.includes(error.response.data?.detail) &&
         // @ts-ignore
         !originalRequest["_retry"]
     ) {
@@ -52,6 +53,7 @@ async function refreshJwt(error: AxiosError): Promise<AxiosResponse> {
         originalRequest["_retry"] = true;
         const refreshResponse = await authService.refreshToken();
         if (refreshResponse.status !== 200) {
+            // TODO Fix logout?
             return Promise.reject(error);
         }
         delete originalRequest.headers?.Authorization;
