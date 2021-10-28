@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import store from "src/store";
 
 import config from "../config/index";
 import apiService from "./apiService";

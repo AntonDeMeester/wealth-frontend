@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import type { FC } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";

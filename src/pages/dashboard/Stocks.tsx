@@ -6,7 +6,7 @@ import { Box, Breadcrumbs, Button, Container, Grid, Link, Typography } from "@ma
 import { StockGraph, StockTable } from "../../components/dashboard/stocks";
 import useSettings from "../../hooks/useSettings";
 import ChevronRightIcon from "../../icons/ChevronRight";
-import { useDispatch, useSelector } from "../../store";
+import { useDispatch } from "../../store";
 import { getPositionsWithBalances, selectAllPositions, deletePosition } from "src/slices/stocks";
 import SearchTickerModal from "src/components/dashboard/stocks/SearchTickerModal";
 import NewStockModal from "src/components/dashboard/stocks/NewStockModal";

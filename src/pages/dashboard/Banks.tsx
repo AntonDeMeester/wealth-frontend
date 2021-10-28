@@ -6,7 +6,7 @@ import { Box, Breadcrumbs, Button, Container, Grid, Link, Typography } from "@ma
 import { AccountsGraph, AccountsTable } from "../../components/dashboard/banks";
 import useSettings from "../../hooks/useSettings";
 import ChevronRightIcon from "../../icons/ChevronRight";
-import { useDispatch, useSelector } from "../../store";
+import { useDispatch } from "../../store";
 import { getAccountsWithBalances, selectAllAccounts } from "src/slices/banking";
 import AddBankModal from "src/components/dashboard/banks/AddBankModal";
 import { useLocation } from "react-router";
