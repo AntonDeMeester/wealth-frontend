@@ -2,7 +2,15 @@ import { useEffect, useState } from "react";
 import type { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Box, Breadcrumbs, Button, Container, Grid, Link, Typography } from "@material-ui/core";
+import {
+    Box,
+    Breadcrumbs,
+    Button,
+    Container,
+    Grid,
+    Link,
+    Typography,
+} from "@material-ui/core";
 import { StockGraph, StockTable } from "../../components/dashboard/stocks";
 import useSettings from "../../hooks/useSettings";
 import ChevronRightIcon from "../../icons/ChevronRight";
@@ -12,6 +20,7 @@ import SearchTickerModal from "src/components/dashboard/stocks/SearchTickerModal
 import NewStockModal from "src/components/dashboard/stocks/NewStockModal";
 import { StockPosition, TickerSearchItem } from "src/types/stocks";
 import { useDebounceSelector } from "src/utils/debouncedSelector";
+import MonthSelector from "src/components/shared/MonthSelector";
 
 const Stocks: FC = () => {
     const { settings } = useSettings();
@@ -21,6 +30,7 @@ const Stocks: FC = () => {
     const [searchModalOpen, setSearchModalOpen] = useState<boolean>(false);
     const [newPositionModalOpen, setNewPositionModalOpen] = useState<boolean>(false);
     const [selectedTicker, setSelectedTicker] = useState<TickerSearchItem | undefined>();
+    const [selectedMonths, setSelectedMonths] = useState<number>(12);
 
     const openSearchModal = () => {
         setSearchModalOpen(true);
@@ -60,8 +70,8 @@ const Stocks: FC = () => {
                 }}
             >
                 <Container maxWidth={settings.compact ? "xl" : false}>
-                    <Grid container justifyContent="space-between" spacing={3}>
-                        <Grid item>
+                    <Grid container justifyContent="flex-end" spacing={3}>
+                        <Grid item justifySelf="flex-start">
                             <Typography color="textPrimary" variant="h5">
                                 Stocks
                             </Typography>
@@ -78,13 +88,18 @@ const Stocks: FC = () => {
                                 </Typography>
                             </Breadcrumbs>
                         </Grid>
+                        <Grid item sx={{ flexGrow: 1 }}/>
                         <Grid item>
+                            <MonthSelector selectedMonths={selectedMonths} onSelectedMonthsChange={setSelectedMonths} />
+                        </Grid>
+                        <Grid item alignSelf="center">
                             <Button
                                 color="primary"
                                 // endIcon={<ChevronDownIcon fontSize="small" />}
                                 sx={{ ml: 2 }}
                                 variant="contained"
                                 onClick={openSearchModal}
+                                size="large"
                             >
                                 Add stock
                             </Button>
@@ -94,7 +109,9 @@ const Stocks: FC = () => {
                         <StockGraph
                             positions={positions}
                             selectedPositions={selectedPositions}
+                            selectedDuration={selectedMonths}
                             sx={{ height: "100%" }}
+                            
                         />
                     </Box>
                     <Box>

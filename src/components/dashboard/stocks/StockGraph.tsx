@@ -12,9 +12,10 @@ import { StockPosition } from "src/types/stocks";
 interface GraphProps extends CardProps {
     positions: StockPosition[];
     selectedPositions: string[];
+    selectedDuration: number;
 }
 
-const StockGraph: FC<GraphProps> = ({ positions, selectedPositions, ...props }) => {
+const StockGraph: FC<GraphProps> = ({ positions, selectedPositions, selectedDuration, ...props }) => {
     const theme = useTheme();
     const relevantPositions = selectedPositions.length
         ? positions.filter((pos) => selectedPositions.includes(pos.positionId))
@@ -24,7 +25,7 @@ const StockGraph: FC<GraphProps> = ({ positions, selectedPositions, ...props }) 
             dataService.sumByDay(
                 relevantPositions.reduce((balances, position) => balances.concat(position.balances || []), [])
             ), 
-            24
+            selectedDuration
         )
         .sort((a, b) => moment(a.date).diff(moment(b.date)))
         .map((d) => ({ x: d.date, y: d.amountInEuro }));

@@ -62,6 +62,7 @@ async function refreshJwt(error: AxiosError): Promise<AxiosResponse> {
             store.dispatch(unselectAccount());
             store.dispatch(unselectPosition());
             store.dispatch(removeAllAccounts());
+            return Promise.reject(error)
         }
         else if (refreshResponse.status !== 200) {
             // TODO Fix logout?

@@ -13,6 +13,7 @@ import { formatCurrency } from "src/services/formatService";
 interface GraphProps extends CardProps {
     accounts: Account[];
     selectedAccounts: string[];
+    selectedDuration: number;
 }
 
 const createFullAlias = (account: Account): string => {
@@ -23,7 +24,7 @@ const createFullAlias = (account: Account): string => {
     return accName;
 };
 
-const AccountGraph: FC<GraphProps> = ({ accounts, selectedAccounts, ...props }) => {
+const AccountGraph: FC<GraphProps> = ({ accounts, selectedAccounts, selectedDuration, ...props }) => {
     const theme = useTheme();
     const relevantAccounts = selectedAccounts.length
         ? accounts.filter((acc) => selectedAccounts.includes(acc.accountId))
@@ -42,7 +43,7 @@ const AccountGraph: FC<GraphProps> = ({ accounts, selectedAccounts, ...props }) 
             ...item,
             balances: dataService.getItemsOfLastXMonths(
                 dataService.addEmptyDates(item.balances, Array.from(allDates.values())),
-                24
+                selectedDuration
             ),
         }))
         .map((item) => ({

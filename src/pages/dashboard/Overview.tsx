@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { FC } from "react";
 import { Helmet } from "react-helmet-async";
 import { Box, Container, Grid, Typography } from "@material-ui/core";
@@ -14,6 +14,7 @@ import { WealthItem } from "src/types/banking";
 import { useDebounceSelector } from "src/utils/debouncedSelector";
 import { isEqual } from "lodash";
 import OverviewPie from "src/components/dashboard/overview/OverviewPie";
+import MonthSelector from "src/components/shared/MonthSelector";
 
 const mapItems = (items: WealthItem[]) => {
     return dataService.sumByDay(items || []).sort((a, b) => moment(a.date).diff(b.date));
@@ -21,14 +22,15 @@ const mapItems = (items: WealthItem[]) => {
 
 const Overview: FC = () => {
     const dispatch = useDispatch();
+    const [selectedMonths, setSelectedMonths] = useState<number>(12);
 
     const bankBalances = dataService.getItemsOfLastXMonths(
         mapItems(useDebounceSelector((state) => selectAllBankBalances(state.banking), isEqual)) || [],
-        24
+        selectedMonths
     );
     const stockBalances = dataService.getItemsOfLastXMonths(
         mapItems(useDebounceSelector((state) => selectAllStockBalances(state.stocks), isEqual)) || [],
-        24
+        selectedMonths
     );
 
     const { settings } = useSettings();
@@ -56,17 +58,26 @@ const Overview: FC = () => {
             >
                 <Container maxWidth={settings.compact ? "xl" : false}>
                     <Grid container spacing={3}>
-                        <Grid alignItems="center" container justifyContent="space-between" spacing={3} item xs={12}>
-                            <Grid item>
-                                <Typography color="textSecondary" variant="overline">
-                                    Overview
-                                </Typography>
-                                <Typography color="textPrimary" variant="h5">
-                                    Welcome back!
-                                </Typography>
-                                <Typography color="textSecondary" variant="subtitle2">
-                                    Here&apos;s what&apos;s happening with your assets today
-                                </Typography>
+                        <Grid item container sx={{ flexDirection: "row" }} spacing={3} xs={12}>
+                            <Grid alignItems="center" justifyContent="space-between" spacing={3} item>
+                                <Grid item>
+                                    <Typography color="textSecondary" variant="overline">
+                                        Overview
+                                    </Typography>
+                                    <Typography color="textPrimary" variant="h5">
+                                        Welcome back!
+                                    </Typography>
+                                    <Typography color="textSecondary" variant="subtitle2">
+                                        Here&apos;s what&apos;s happening with your assets today
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid item sx={{ flexGrow: 1 }} />
+                            <Grid item alignSelf="center">
+                                <MonthSelector
+                                    selectedMonths={selectedMonths}
+                                    onSelectedMonthsChange={setSelectedMonths}
+                                />
                             </Grid>
                         </Grid>
                         <Grid item md={8} xs={12}>

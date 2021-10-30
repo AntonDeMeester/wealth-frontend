@@ -35,6 +35,9 @@ class DataService {
         if (!balances.length) {
             return [];
         }
+        if(numberOfMonths === -1) {
+            return balances
+        }
         const lastMonth = moment().subtract(numberOfMonths, "month");
         let balancesLastMonth = balances.filter((b) => moment(b.date).isAfter(lastMonth));
         if (balancesLastMonth.length === 0) {

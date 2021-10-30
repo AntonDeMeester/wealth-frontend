@@ -60,7 +60,7 @@ const OverviewPie: FC<GraphProps> = ({ bankBalance, stockBalance }) => {
 
     return (
         <Card>
-            <CardHeader title="Composition" />
+            <CardHeader title="Current composition" />
             <CardContent>
                 <Chart height="300" options={chartOptions} series={chartSeries} type="pie" />
             </CardContent>

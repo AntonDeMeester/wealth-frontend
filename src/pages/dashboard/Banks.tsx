@@ -12,6 +12,7 @@ import AddBankModal from "src/components/dashboard/banks/AddBankModal";
 import { useLocation } from "react-router";
 import bankService from "src/services/bankService";
 import { useDebounceSelector } from "src/utils/debouncedSelector";
+import MonthSelector from "src/components/shared/MonthSelector";
 
 const Banks: FC = () => {
     const location = useLocation();
@@ -20,6 +21,7 @@ const Banks: FC = () => {
     const accounts = useDebounceSelector((state) => selectAllAccounts(state.banking));
     const [selectedAccounts, setSelectedAccounts] = useState<string[]>([]);
     const [tinkModalOpen, setTinkModalOpen] = useState<boolean>(false);
+    const [selectedMonths, setSelectedMonths] = useState<number>(12);
 
     useEffect(() => {
         dispatch(getAccountsWithBalances());
@@ -61,8 +63,8 @@ const Banks: FC = () => {
                 }}
             >
                 <Container maxWidth={settings.compact ? "xl" : false}>
-                    <Grid container justifyContent="space-between" spacing={3}>
-                        <Grid item>
+                    <Grid container justifyContent="flex-end" spacing={3}>
+                        <Grid item justifySelf="flex-start">
                             <Typography color="textPrimary" variant="h5">
                                 Account
                             </Typography>
@@ -79,13 +81,18 @@ const Banks: FC = () => {
                                 </Typography>
                             </Breadcrumbs>
                         </Grid>
+                        <Grid item sx={{ flexGrow: 1 }}/>
                         <Grid item>
+                            <MonthSelector selectedMonths={selectedMonths} onSelectedMonthsChange={setSelectedMonths} />
+                        </Grid>
+                        <Grid item alignSelf="center">
                             <Button
                                 color="primary"
                                 // endIcon={<ChevronDownIcon fontSize="small" />}
                                 sx={{ ml: 2 }}
                                 variant="contained"
                                 onClick={openAddBankModal}
+                                size="large"
                             >
                                 Add Bank
                             </Button>
@@ -95,6 +102,7 @@ const Banks: FC = () => {
                         <AccountsGraph
                             accounts={accounts}
                             selectedAccounts={selectedAccounts}
+                            selectedDuration={selectedMonths}
                             sx={{ height: "100%" }}
                         />
                     </Box>
