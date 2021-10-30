@@ -45,7 +45,6 @@ async function refreshJwt(error: AxiosError): Promise<AxiosResponse> {
     if (!isNormalWealthRequest(originalRequest)) {
         return Promise.reject(error);
     }
-    // @ts-ignore
     if (
         error.response?.data.errorType === errorType &&
         // @ts-ignore
@@ -57,6 +56,7 @@ async function refreshJwt(error: AxiosError): Promise<AxiosResponse> {
         if (
             error.response?.data.errorType === errorType
         ) {
+            authService.logout()
             store.dispatch(authSlice.logout());
             store.dispatch(removeAllPositions());
             store.dispatch(unselectAccount());
