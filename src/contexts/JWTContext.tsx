@@ -5,8 +5,8 @@ import { authService } from "../services/authService";
 import { CreateUser } from "src/types/auth";
 import { useDispatch, useSelector } from "src/store";
 import * as authSlice from "src/slices/auth"
-import {removeAllPositions} from "src/slices/stocks"
-import { removeAllAccounts } from "src/slices/banking";
+import {removeAllPositions, unselectPosition} from "src/slices/stocks"
+import { removeAllAccounts, unselectAccount } from "src/slices/banking";
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -64,6 +64,8 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
     const logout = async (): Promise<void> => {
         dispatch(authSlice.logout());
         dispatch(removeAllPositions());
+        dispatch(unselectAccount());
+        dispatch(unselectPosition());
         dispatch(removeAllAccounts());
     };
 

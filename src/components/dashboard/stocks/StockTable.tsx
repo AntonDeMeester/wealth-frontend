@@ -36,7 +36,7 @@ interface OrderListTableProps {
 }
 
 const getPercentIncrease = (position: StockPosition): number =>
-    position.currentValue / (position.balances?.[0].amount || position.currentValue) - 1;
+    position.currentValue / (position.balances?.[0]?.amount || position.currentValue) - 1;
 
 const calculateIRR = (position: StockPosition): number =>
     Math.pow(getPercentIncrease(position) + 1, 1 / (moment().diff(moment(position.startDate), "days") / 365)) - 1;

@@ -1,10 +1,14 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import store from "src/store";
 
 import config from "../config/index";
 import apiService from "./apiService";
 import authService from "./authService";
+import * as authSlice from "src/slices/auth"
+import {removeAllPositions, unselectPosition} from "src/slices/stocks"
+import { removeAllAccounts, unselectAccount } from "src/slices/banking";
 
-const jwtExpiredData = ["Signature has expired", "Signature verification failed"] 
+const errorType = "authentication"
 
 const isNormalWealthRequest = (request: AxiosRequestConfig) => {
     if (request.baseURL !== config.host && !request.url?.startsWith(config.host)) {
@@ -43,15 +47,23 @@ async function refreshJwt(error: AxiosError): Promise<AxiosResponse> {
     }
     // @ts-ignore
     if (
-        error.response?.status === 422 &&
-        jwtExpiredData.includes(error.response.data?.detail) &&
+        error.response?.data.errorType === errorType &&
         // @ts-ignore
         !originalRequest["_retry"]
     ) {
         // @ts-ignore
         originalRequest["_retry"] = true;
         const refreshResponse = await authService.refreshToken();
-        if (refreshResponse.status !== 200) {
+        if (
+            error.response?.data.errorType === errorType
+        ) {
+            store.dispatch(authSlice.logout());
+            store.dispatch(removeAllPositions());
+            store.dispatch(unselectAccount());
+            store.dispatch(unselectPosition());
+            store.dispatch(removeAllAccounts());
+        }
+        else if (refreshResponse.status !== 200) {
             // TODO Fix logout?
             return Promise.reject(error);
         }
