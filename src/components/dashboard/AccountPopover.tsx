@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Avatar, Box, Button, ButtonBase, Divider, Popover, Typography } from "@material-ui/core";
 import useAuth from "../../hooks/useAuth";
+import { useSelector } from "src/store";
+import { selectUser } from "src/slices/auth";
 
 const AccountPopover: FC = () => {
     const anchorRef = useRef<HTMLButtonElement | null>(null);
     const { logout } = useAuth();
+    const user  = useSelector(state => selectUser(state.auth))
     const navigate = useNavigate();
     const [open, setOpen] = useState<boolean>(false);
 
@@ -64,39 +67,13 @@ const AccountPopover: FC = () => {
             >
                 <Box sx={{ p: 2 }}>
                     <Typography color="textPrimary" variant="subtitle2">
-                        Anton
+                        {user?.firstName}
                     </Typography>
                     <Typography color="textSecondary" variant="subtitle2">
-                        De Meester
+                        {user?.lastName}
                     </Typography>
                 </Box>
                 <Divider />
-                {/* <Box sx={{ mt: 2 }}>
-                    <MenuItem component={RouterLink} to="/dashboard/social/profile">
-                        <ListItemIcon>
-                            <UserIcon fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={
-                                <Typography color="textPrimary" variant="subtitle2">
-                                    Profile
-                                </Typography>
-                            }
-                        />
-                    </MenuItem>
-                    <MenuItem component={RouterLink} to="/dashboard/account">
-                        <ListItemIcon>
-                            <CogIcon fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={
-                                <Typography color="textPrimary" variant="subtitle2">
-                                    Settings
-                                </Typography>
-                            }
-                        />
-                    </MenuItem>
-                </Box> */}
                 <Box sx={{ p: 2 }}>
                     <Button color="primary" fullWidth onClick={handleLogout} variant="outlined">
                         Logout

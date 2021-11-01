@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { Box, Button, Checkbox, FormHelperText, TextField, Typography, Link } from "@material-ui/core";
+import { Box, Button, FormHelperText, TextField } from "@material-ui/core";
 import useAuth from "../../../hooks/useAuth";
 import useMounted from "../../../hooks/useMounted";
 import { useNavigate } from "react-router";
@@ -19,7 +19,7 @@ const RegisterJWT: FC = (props) => {
                 lastName: "",
                 password: "",
                 password2: "",
-                policy: false,
+                // policy: false,
                 submit: null,
             }}
             validationSchema={Yup.object().shape({
@@ -28,7 +28,7 @@ const RegisterJWT: FC = (props) => {
                 lastName: Yup.string().max(255).required("Last name is required"),
                 password: Yup.string().min(7).max(255).required("Password is required"),
                 password2: Yup.string().min(7).max(255).required("Password is required"),
-                policy: Yup.boolean().oneOf([true], "This field must be checked"),
+                // policy: Yup.boolean().oneOf([true], "This field must be checked"),
             })}
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }): Promise<void> => {
                 try {
@@ -112,7 +112,7 @@ const RegisterJWT: FC = (props) => {
                         value={values.password2}
                         variant="outlined"
                     />
-                    <Box
+                    {/* <Box
                         sx={{
                             alignItems: "center",
                             display: "flex",
@@ -127,8 +127,8 @@ const RegisterJWT: FC = (props) => {
                                 Terms and Conditions
                             </Link>
                         </Typography>
-                    </Box>
-                    {Boolean(touched.policy && errors.policy) && <FormHelperText error>{errors.policy}</FormHelperText>}
+                    </Box> */}
+                    {/* {Boolean(touched.policy && errors.policy) && <FormHelperText error>{errors.policy}</FormHelperText>} */}
                     {errors.submit && (
                         <Box sx={{ mt: 3 }}>
                             <FormHelperText error>{errors.submit}</FormHelperText>

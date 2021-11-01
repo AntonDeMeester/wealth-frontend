@@ -10,11 +10,11 @@ const LoginJWT: FC = (props) => {
     const { login } = useAuth() as any;
 
     const validationSchema = Yup.object().shape({
-        email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
+        email: Yup.string().email("Must be a valid email").max(255).required("Email is required").nullable(),
         password: Yup.string().max(255).required("Password is required"),
     });
     const initialValues = {
-        email: null,
+        email: null,    
         password: null,
         submit: null,
     };

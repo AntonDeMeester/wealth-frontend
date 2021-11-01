@@ -2,17 +2,10 @@ import type { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Box, Card, CardContent, Container, Divider, Link, Typography } from "@material-ui/core";
-import AuthBanner from "../../components/authentication/AuthBanner";
 import { Login as LoginComponent } from "../../components/authentication/login";
 import Logo from "../../components/Logo";
 import useAuth from "../../hooks/useAuth";
 
-const platformIcons = {
-    Amplify: "/static/icons/amplify.svg",
-    Auth0: "/static/icons/auth0.svg",
-    Firebase: "/static/icons/firebase.svg",
-    JWT: "/static/icons/jwt.svg",
-};
 
 const Login: FC = () => {
     const { platform } = useAuth() as any;
@@ -30,7 +23,6 @@ const Login: FC = () => {
                     minHeight: "100vh",
                 }}
             >
-                <AuthBanner />
                 <Container maxWidth="sm" sx={{ py: "80px" }}>
                     <Box
                         sx={{
@@ -69,20 +61,9 @@ const Login: FC = () => {
                                         Log in
                                     </Typography>
                                     <Typography color="textSecondary" variant="body2">
-                                        Log in on the internal platform
+                                        Log in on the Wealth platform of the future
                                     </Typography>
                                 </div>
-                                <Box
-                                    sx={{
-                                        height: 32,
-                                        "& > img": {
-                                            maxHeight: "100%",
-                                            width: "auto",
-                                        },
-                                    }}
-                                >
-                                    <img alt="Auth platform" src={platformIcons[platform]} />
-                                </Box>
                             </Box>
                             <Box
                                 sx={{

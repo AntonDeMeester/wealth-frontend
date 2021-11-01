@@ -2,17 +2,9 @@ import type { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Box, Card, CardContent, Container, Typography } from "@material-ui/core";
-import AuthBanner from "../../components/authentication/AuthBanner";
 import { PasswordRecoveryAmplify } from "../../components/authentication/password-recovery";
 import Logo from "../../components/Logo";
 import useAuth from "../../hooks/useAuth";
-
-const platformIcons = {
-    Amplify: "/static/icons/amplify.svg",
-    Auth0: "/static/icons/auth0.svg",
-    Firebase: "/static/icons/firebase.svg",
-    JWT: "/static/icons/jwt.svg",
-};
 
 const PasswordRecovery: FC = () => {
     const { platform } = useAuth() as any;
@@ -30,7 +22,6 @@ const PasswordRecovery: FC = () => {
                     minHeight: "100vh",
                 }}
             >
-                <AuthBanner />
                 <Container maxWidth="sm" sx={{ py: 10 }}>
                     <Box
                         sx={{
@@ -78,17 +69,6 @@ const PasswordRecovery: FC = () => {
                                         Tell us your email so we can send you a reset link
                                     </Typography>
                                 </div>
-                                <Box
-                                    sx={{
-                                        height: 32,
-                                        "& > img": {
-                                            maxHeight: "100%",
-                                            width: "auto",
-                                        },
-                                    }}
-                                >
-                                    <img alt="Auth platform" src={platformIcons[platform]} />
-                                </Box>
                             </Box>
                             <Box
                                 sx={{

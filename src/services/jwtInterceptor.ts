@@ -15,6 +15,9 @@ const isNormalWealthRequest = (request: AxiosRequestConfig) => {
         return false;
     }
     if (request.url?.includes("auth/") || request.url?.startsWith(config.host + "auth")) {
+        if (request.url?.includes("auth/user") || request.url?.startsWith(config.host + "auth/user")) {
+            return true;
+        }
         return false;
     }
     return true;

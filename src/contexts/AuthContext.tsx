@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import { authService } from "../services/authService";
 import { CreateUser } from "src/types/auth";
 import { useDispatch, useSelector } from "src/store";
-import * as authSlice from "src/slices/auth"
-import {removeAllPositions, unselectPosition} from "src/slices/stocks"
+import * as authSlice from "src/slices/auth";
+import { removeAllPositions, unselectPosition } from "src/slices/stocks";
 import { removeAllAccounts, unselectAccount } from "src/slices/banking";
 
 interface AuthProviderProps {
@@ -19,7 +19,6 @@ interface AuthContextValue extends authSlice.AuthState {
     register: (user: CreateUser) => Promise<void>;
 }
 
-
 const AuthContext = createContext<AuthContextValue>({
     ...authSlice.initialState,
     platform: "JWT",
@@ -31,7 +30,7 @@ const AuthContext = createContext<AuthContextValue>({
 export const AuthProvider: FC<AuthProviderProps> = (props) => {
     const { children } = props;
     const dispatch = useDispatch();
-    const authState = useSelector(state => state.auth)
+    const authState = useSelector((state) => state.auth);
 
     useEffect(() => {
         const initialize = async (): Promise<void> => {
@@ -39,6 +38,8 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
                 const accessToken = authService.getAccessToken();
 
                 if (accessToken) {
+                    const user = await authService.getUser();
+                    dispatch(authSlice.setUser(user.data));
                     dispatch(authSlice.initialize(true));
                 } else {
                     dispatch(authSlice.initialize(false));
@@ -59,14 +60,18 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
             return;
         }
         dispatch(authSlice.login());
+        const user = await authService.getUser();
+        dispatch(authSlice.setUser(user.data));
     };
 
     const logout = async (): Promise<void> => {
+        authService.logout()
         dispatch(authSlice.logout());
         dispatch(removeAllPositions());
         dispatch(unselectAccount());
         dispatch(unselectPosition());
         dispatch(removeAllAccounts());
+        dispatch(authSlice.resetUser());
     };
 
     const register = async (user: CreateUser): Promise<void> => {

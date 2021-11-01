@@ -10,6 +10,8 @@ import ShoppingBagIcon from "../../icons/ShoppingBag";
 import Logo from "../Logo";
 import NavSection from "../NavSection";
 import Scrollbar from "../Scrollbar";
+import { useSelector } from "src/store";
+import { selectUser } from "src/slices/auth";
 
 interface DashboardSidebarProps {
     onMobileClose: () => void;
@@ -47,6 +49,7 @@ const sections = [
 const DashboardSidebar: FC<DashboardSidebarProps> = (props) => {
     const { onMobileClose, openMobile } = props;
     const location = useLocation();
+    const user  = useSelector(state => selectUser(state.auth))
     const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
 
     const content = (
@@ -100,14 +103,8 @@ const DashboardSidebar: FC<DashboardSidebarProps> = (props) => {
                         </RouterLink>
                         <Box sx={{ ml: 2 }}>
                             <Typography color="textPrimary" variant="subtitle2">
-                                Anton
+                                {user?.firstName}
                             </Typography>
-                            {/* <Typography color="textSecondary" variant="body2">
-                                Your plan:{" "}
-                                <Link color="primary" component={RouterLink} to="/pricing">
-                                    Expensive
-                                </Link>
-                            </Typography> */}
                         </Box>
                     </Box>
                 </Box>

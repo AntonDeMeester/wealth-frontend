@@ -23,7 +23,7 @@ class AuthService {
     }
 
     public logout() {
-        this.resetAccessToken();
+        this.resetTokens();
     }
 
     public async register(user: CreateUser): Promise<AxiosResponse<UserResponse>> {
@@ -79,6 +79,10 @@ class AuthService {
 
     public isLoggedIn() {
         return !!this.getAccessToken();
+    }
+
+    public async getUser(): Promise<AxiosResponse<UserResponse>> {
+        return await apiService.get<UserResponse>(this.routes.register);
     }
 }
 

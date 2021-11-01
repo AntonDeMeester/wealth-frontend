@@ -2,21 +2,10 @@ import type { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Box, Card, CardContent, Container, Divider, Link, Typography } from "@material-ui/core";
-import AuthBanner from "../../components/authentication/AuthBanner";
 import { Register as RegisterComponent } from "../../components/authentication/register";
 import Logo from "../../components/Logo";
-import useAuth from "../../hooks/useAuth";
-
-const platformIcons = {
-    Amplify: "/static/icons/amplify.svg",
-    Auth0: "/static/icons/auth0.svg",
-    Firebase: "/static/icons/firebase.svg",
-    JWT: "/static/icons/jwt.svg",
-};
 
 const Register: FC = () => {
-    const { platform } = useAuth() as any;
-
     return (
         <>
             <Helmet>
@@ -30,7 +19,6 @@ const Register: FC = () => {
                     minHeight: "100vh",
                 }}
             >
-                <AuthBanner />
                 <Container maxWidth="sm" sx={{ py: "80px" }}>
                     <Box
                         sx={{
@@ -72,17 +60,6 @@ const Register: FC = () => {
                                         Register on the internal platform
                                     </Typography>
                                 </div>
-                                <Box
-                                    sx={{
-                                        height: 32,
-                                        "& > img": {
-                                            maxHeight: "100%",
-                                            width: "auto",
-                                        },
-                                    }}
-                                >
-                                    <img alt="Auth platform" src={platformIcons[platform]} />
-                                </Box>
                             </Box>
                             <Box
                                 sx={{
@@ -94,7 +71,7 @@ const Register: FC = () => {
                             </Box>
                             <Divider sx={{ my: 3 }} />
                             <Link color="textSecondary" component={RouterLink} to="/auth/login" variant="body2">
-                                Having an account
+                                I already have an account
                             </Link>
                         </CardContent>
                     </Card>

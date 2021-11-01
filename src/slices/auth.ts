@@ -1,10 +1,11 @@
-
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk } from "src/store";
+import { UserResponse } from "src/types/auth";
 
 export interface AuthState {
     isInitialized: boolean;
     isAuthenticated: boolean;
+    user: UserResponse | null;
 }
 
 type InitializeAction = {
@@ -17,10 +18,13 @@ type InitializeAction = {
 export const initialState: AuthState = {
     isAuthenticated: false,
     isInitialized: false,
+    user: null,
 };
 
+export const selectUser = (state: AuthState) => state.user
+
 const slice = createSlice({
-    name: "stocks",
+    name: "auth",
     initialState,
     reducers: {
         initialize: (state: AuthState, action: InitializeAction): AuthState => {
@@ -46,6 +50,18 @@ const slice = createSlice({
             return {
                 ...state,
                 isAuthenticated: false,
+            };
+        },
+        setUser: (state: AuthState, action: PayloadAction<UserResponse>): AuthState => {
+            return {
+                ...state,
+                user: action.payload,
+            };
+        },
+        resetUser: (state: AuthState): AuthState => {
+            return {
+                ...state,
+                user: null,
             };
         },
     },
@@ -74,7 +90,19 @@ export const register =
 export const initialize =
     (isAuthenticated: boolean): AppThunk =>
     async (dispatch): Promise<void> => {
-        dispatch(slice.actions.initialize({isAuthenticated}));
+        dispatch(slice.actions.initialize({ isAuthenticated }));
+    };
+
+export const setUser =
+    (user: UserResponse): AppThunk =>
+    async (dispatch): Promise<void> => {
+        dispatch(slice.actions.setUser(user));
+    };
+
+export const resetUser =
+    (): AppThunk =>
+    async (dispatch): Promise<void> => {
+        dispatch(slice.actions.resetUser());
     };
 
 export default slice;
