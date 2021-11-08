@@ -7,6 +7,7 @@ import useSettings from "../../hooks/useSettings";
 import { useDispatch } from "../../store";
 import { selectAllBalances as selectAllBankBalances, getAccountsWithBalances } from "src/slices/banking";
 import { selectAllBalances as selectAllStockBalances, getPositionsWithBalances } from "src/slices/stocks";
+import { selectAllBalances as selectAllCustomAssetBalances, getAssetsWithBalances } from "src/slices/customAssets";
 import OverviewGraph from "src/components/dashboard/overview/OverviewGraph";
 import dataService from "src/services/dataService";
 import moment from "moment";
@@ -32,16 +33,22 @@ const Overview: FC = () => {
         mapItems(useDebounceSelector((state) => selectAllStockBalances(state.stocks), isEqual)) || [],
         selectedMonths
     );
+    const customAssetBalances = dataService.getItemsOfLastXMonths(
+        mapItems(useDebounceSelector((state) => selectAllCustomAssetBalances(state.customAssets), isEqual)) || [],
+        selectedMonths
+    );
 
     const { settings } = useSettings();
 
     const lastBankBalance = bankBalances?.[bankBalances?.length - 1]?.amountInEuro || 0;
     const lastStockBalance = stockBalances?.[stockBalances?.length - 1]?.amountInEuro || 0;
-    const totalAmount = lastBankBalance + lastStockBalance;
+    const lastCustomAssetBalance = customAssetBalances?.[customAssetBalances?.length - 1]?.amountInEuro || 0;
+    const totalAmount = lastBankBalance + lastStockBalance + lastCustomAssetBalance;
 
     useEffect(() => {
         dispatch(getAccountsWithBalances());
         dispatch(getPositionsWithBalances());
+        dispatch(getAssetsWithBalances())
     }, [dispatch]);
 
     return (
@@ -81,7 +88,7 @@ const Overview: FC = () => {
                             </Grid>
                         </Grid>
                         <Grid item md={8} xs={12}>
-                            <OverviewGraph bankBalances={bankBalances} stockBalances={stockBalances} />
+                            <OverviewGraph bankBalances={bankBalances} stockBalances={stockBalances} customAssetBalances={customAssetBalances}/>
                         </Grid>
                         <Grid item md={4}>
                             <Grid container spacing={3}>
@@ -89,7 +96,7 @@ const Overview: FC = () => {
                                     <OverviewTotalBalance totalAmount={totalAmount} />
                                 </Grid>
                                 <Grid item md={12} xs={12}>
-                                    <OverviewPie bankBalance={lastBankBalance} stockBalance={lastStockBalance} />
+                                    <OverviewPie bankBalance={lastBankBalance} stockBalance={lastStockBalance} customAssetBalance={lastCustomAssetBalance}/>
                                 </Grid>
                             </Grid>
                         </Grid>

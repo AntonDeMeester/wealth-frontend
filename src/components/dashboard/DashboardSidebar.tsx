@@ -37,11 +37,11 @@ const sections = [
                 path: "/stocks",
                 icon: <ShoppingBagIcon fontSize="small" />,
             },
-            // {
-            //     title: "Account",
-            //     path: "/account",
-            //     icon: <UserIcon fontSize="small" />,
-            // },
+            {
+                title: "Custom Assets",
+                path: "/custom-assets",
+                icon: <ChartPieIcon fontSize="small" />,
+            },
         ],
     },
 ];

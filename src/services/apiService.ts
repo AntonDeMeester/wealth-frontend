@@ -39,6 +39,19 @@ class ApiService {
         });
     }
 
+    public async put<ResponseType>(
+        endpoint: string,
+        data: any = {},
+        headers: Headers = {}
+    ): Promise<AxiosResponse<ResponseType>> {
+        if (!headers["Content-Type"]) {
+            headers = { ...headers, "Content-Type": "application/json" };
+        }
+        return axiosInstance.put<ResponseType>(endpoint, data, {
+            headers: headers,
+        });
+    }
+
     public async patch<ResponseType>(
         endpoint: string,
         data: any = {},

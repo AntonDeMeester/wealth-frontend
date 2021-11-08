@@ -26,6 +26,7 @@ const Account = Loadable(lazy(() => import("./pages/dashboard/Account")));
 const Overview = Loadable(lazy(() => import("./pages/dashboard/Overview")));
 const Banks = Loadable(lazy(() => import("./pages/dashboard/Banks")));
 const Stocks = Loadable(lazy(() => import("./pages/dashboard/Stocks")));
+const CustomAssets =Loadable(lazy(() =>import("./pages/dashboard/CustomAssets")));
 
 const routes: PartialRouteObject[] = [
     {
@@ -93,6 +94,10 @@ const routes: PartialRouteObject[] = [
                 path: "stocks",
                 element: <Stocks />,
             },
+            {
+                path: "custom-assets",
+                element: <CustomAssets />
+            }
         ],
     },
 ];

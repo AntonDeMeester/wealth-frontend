@@ -1,65 +1,39 @@
 import type { FC } from "react";
 import type { ApexOptions } from "apexcharts";
 import Chart from "react-apexcharts";
-import { Box, Card, CardHeader, Tooltip, Typography } from "@material-ui/core";
+import { Box, Card, CardHeader, Typography } from "@material-ui/core";
 import type { CardProps } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import InformationCircleIcon from "../../../icons/InformationCircle";
-import { WealthItem } from "src/types/banking";
 import moment from "moment";
 import dataService from "src/services/dataService";
 import { formatCurrency } from "src/services/formatService";
+import { CustomAsset } from "src/types/customAssets";
 
 interface GraphProps extends CardProps {
-    bankBalances: WealthItem[];
-    stockBalances: WealthItem[];
-    customAssetBalances: WealthItem[];
+    assets: CustomAsset[];
+    selectedAssets: string[];
+    selectedDuration: number;
 }
 
-const OverviewGraph: FC<GraphProps> = ({ bankBalances, stockBalances, customAssetBalances }) => {
+const StockGraph: FC<GraphProps> = ({ assets, selectedAssets, selectedDuration, ...props }) => {
     const theme = useTheme();
-    const dataList = [
-        {
-            id: "bank",
-            name: "Banks",
-            balances: bankBalances,
-        },
-        {
-            id: "stock",
-            name: "Stocks",
-            balances: stockBalances,
-        },
-        {
-            id: "assets",
-            name: "Custom Assets",
-            balances: customAssetBalances,
-        },
-    ];
-    const allDates = new Set<string>();
-    dataList.forEach((item) => {
-        item.balances.forEach((balance) => allDates.add(balance.date));
-    });
-    const graphData = dataList
-        .map((item) => ({
-            ...item,
-            balances: dataService.addEmptyDates(item.balances, Array.from(allDates.values())),
-        }))
-        .map((item) => ({
-            id: item.id,
-            name: item.name,
-            data: dataService.reduceLength(
-                item.balances
-                    .sort((a, b) => moment(a.date).diff(moment(b.date)))
-                    .map((d) => ({ x: d.date, y: d.amountInEuro })),
-                200
-            ),
-        }));
+    const relevantAssets = selectedAssets.length
+        ? assets.filter((asset) => selectedAssets.includes(asset.assetId))
+        : assets;
+    const data = dataService
+        .getItemsOfLastXMonths(
+            dataService.sumByDay(
+                relevantAssets.reduce((balances, asset) => balances.concat(asset.balances || []), [])
+            ), 
+            selectedDuration
+        )
+        .sort((a, b) => moment(a.date).diff(moment(b.date)))
+        .map((d) => ({ x: d.date, y: d.amountInEuro }));
+    const graphData = [{ name: "Total", data }];
 
     const chartOptions: ApexOptions = {
         chart: {
             background: "transparent",
-            animations: { animateGradually: { delay: 0 }, dynamicAnimation: { speed: 500 } },
-            stacked: true,
             toolbar: {
                 show: false,
             },
@@ -120,7 +94,7 @@ const OverviewGraph: FC<GraphProps> = ({ bankBalances, stockBalances, customAsse
     };
 
     return (
-        <Card>
+        <Card {...props}>
             <CardHeader
                 disableTypography
                 title={
@@ -132,11 +106,8 @@ const OverviewGraph: FC<GraphProps> = ({ bankBalances, stockBalances, customAsse
                         }}
                     >
                         <Typography color="textPrimary" variant="h6">
-                            Total assets
+                            Asset balancces
                         </Typography>
-                        <Tooltip title="Widget25 Source by channel">
-                            <InformationCircleIcon fontSize="small" />
-                        </Tooltip>
                     </Box>
                 }
             />
@@ -145,4 +116,4 @@ const OverviewGraph: FC<GraphProps> = ({ bankBalances, stockBalances, customAsse
     );
 };
 
-export default OverviewGraph;
+export default StockGraph;

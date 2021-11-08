@@ -9,9 +9,10 @@ import { formatCurrency } from "src/services/formatService";
 interface GraphProps extends CardProps {
     bankBalance: number;
     stockBalance: number;
+    customAssetBalance: number;
 }
 
-const OverviewPie: FC<GraphProps> = ({ bankBalance, stockBalance }) => {
+const OverviewPie: FC<GraphProps> = ({ bankBalance, stockBalance, customAssetBalance }) => {
     const theme = useTheme();
     const data = [
         {
@@ -21,6 +22,10 @@ const OverviewPie: FC<GraphProps> = ({ bankBalance, stockBalance }) => {
         {
             data: stockBalance,
             label: "Stocks",
+        },
+        {
+            data: customAssetBalance,
+            label: "Custom Assets",
         },
     ];
     const chartOptions: ApexOptions = {
