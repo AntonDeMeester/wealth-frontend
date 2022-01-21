@@ -17,6 +17,7 @@ import {
     TableHead,
     TablePagination,
     TableRow,
+    Tooltip,
     Typography,
 } from "@material-ui/core";
 import PencilAltIcon from "../../../icons/PencilAlt";
@@ -24,6 +25,8 @@ import Scrollbar from "../../Scrollbar";
 // import OrderListBulkActions from "../order/OrderListBulkActions";
 import { Account } from "src/types/banking";
 import AccountModal from "src/components/dashboard/banks/AccountModal";
+import Exclamation from "src/icons/Exclamation";
+import bankService from "src/services/bankService";
 
 interface AccountsTableProps {
     accounts: Account[];
@@ -70,6 +73,16 @@ const AccountsTable: FC<AccountsTableProps> = (props) => {
 
     const handleLimitChange = (event: ChangeEvent<HTMLInputElement>): void => {
         setLimit(parseInt(event.target.value, 10));
+    };
+
+    const refreshCredentials = async (account: Account) => {
+        if (!account.credentialId) {
+            return;
+        }
+        const response = await bankService.refreshTink(account.credentialId);
+        if (response?.data?.url) {
+            window.location.href = response?.data?.url;
+        }
     };
 
     const paginatedOrders = applyPagination(accounts, page, limit);
@@ -156,12 +169,18 @@ const AccountsTable: FC<AccountsTableProps> = (props) => {
                                             </TableCell>
                                             <TableCell>{account.type}</TableCell>
                                             <TableCell align="right">
+                                                {account.credentialStatus && account.credentialStatus !== "valid" && (
+                                                    <Tooltip title="Your bank credentials are expired. Please refresh them">
+                                                        <IconButton
+                                                            onClick={async () => await refreshCredentials(account)}
+                                                        >
+                                                            <Exclamation fontSize="small" color="error" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                )}
                                                 <IconButton onClick={() => openModal(account)}>
                                                     <PencilAltIcon fontSize="small" />
                                                 </IconButton>
-                                                {/* <IconButton component={RouterLink} to="/dashboard/orders/1">
-                                                    <ArrowRightIcon fontSize="small" />
-                                                </IconButton> */}
                                             </TableCell>
                                         </TableRow>
                                     );

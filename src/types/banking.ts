@@ -20,6 +20,8 @@ export interface Account {
     externalId: string;
     name: string;
     isActive: boolean;
+    credentialId: string | null;
+    credentialStatus: string | null;
     balances?: WealthItem[];
 }
 

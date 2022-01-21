@@ -21,6 +21,7 @@ class BankService {
     private tinkRoutes = {
         tinkLink: `${this.tinkBaseBath}/bank`,
         tinkCallback: `${this.tinkBaseBath}/callback`,
+        tinkRefreshCredentials: `${this.tinkBaseBath}/bank/refresh`
     };
 
     public async getBalances(): Promise<AxiosResponse<WealthItem[]>> {
@@ -45,6 +46,10 @@ class BankService {
 
     public async getTinkLink(params: TinkLinkParameters): Promise<AxiosResponse<TinkLinkResponse>> {
         return await apiService.get<TinkLinkResponse>(`${this.tinkRoutes.tinkLink}`, undefined, { ...params });
+    }
+    
+    public async refreshTink(credentialId: string): Promise<AxiosResponse<TinkLinkResponse>> {
+        return await apiService.get<TinkLinkResponse>(`${this.tinkRoutes.tinkRefreshCredentials}/${credentialId}`);
     }
 
     public async tinkCallback(params: TinkLinkCallbackParameters): Promise<AxiosResponse<{}>> {
