@@ -44,7 +44,7 @@
         "@mui/material": "^5.0.0-alpha.34",
         "@mui/system": "^5.0.0-alpha.34",
         "@react-pdf/renderer": "^1.6.13",
-        "@reduxjs/toolkit": "^1.5.0",
+        "@reduxjs/toolkit": "^1.8.0",
         "apexcharts": "^3.23.1",
         "axios": "^0.26.1",
         "axios-case-converter": "^0.9.0",
