@@ -10,7 +10,7 @@ import {
   TextField,
   Tooltip,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 import { THEMES } from '../constants';
 import useSettings from '../hooks/useSettings';
 import AdjustmentsIcon from '../icons/Adjustments';

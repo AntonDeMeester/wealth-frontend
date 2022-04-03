@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import PropTypes from 'prop-types';
-import { experimentalStyled } from '@material-ui/core/styles';
+import { experimentalStyled } from '@mui/material/styles';
 
 interface StatusIndicatorProps {
   size?: 'small' | 'medium' | 'large';

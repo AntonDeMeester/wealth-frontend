@@ -7,7 +7,7 @@ import {
   Divider,
   IconButton,
   ThemeProvider
-} from '@material-ui/core';
+} from '@mui/material';
 import { THEMES } from '../constants';
 import useSettings from '../hooks/useSettings';
 import MoonIcon from '../icons/Moon';

@@ -1,4 +1,4 @@
-import { MenuItem, Select } from "@material-ui/core";
+import { MenuItem, Select } from "@mui/material";
 
 const monthOptions = [1, 2, 3, 6, 12, 24, 36, 60, 120, -1];
 const getDurationText = (months: number) => {

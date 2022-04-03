@@ -10,7 +10,7 @@ import {
   TableCell,
   TableRow,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 
 interface Transaction {
   id: string;

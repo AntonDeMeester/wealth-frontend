@@ -1,7 +1,7 @@
 import { Editor, EditorProps } from 'react-draft-wysiwyg';
 import type { FC } from 'react';
 import PropTypes from 'prop-types';
-import { experimentalStyled } from '@material-ui/core/styles';
+import { experimentalStyled } from '@mui/material/styles';
 
 interface DraftEditorProps extends EditorProps {
   sx: Record<string, any>;

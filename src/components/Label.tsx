@@ -1,8 +1,8 @@
 import type { FC, ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import type { Theme } from '@material-ui/core';
-import { experimentalStyled } from '@material-ui/core/styles';
-import type { SxProps } from '@material-ui/system';
+import type { Theme } from '@mui/material';
+import { experimentalStyled } from '@mui/material/styles';
+import type { SxProps } from '@mui/system';
 
 export type LabelColor =
   | 'primary'

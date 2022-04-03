@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Box, Button, Dialog, Divider, IconButton, TextField } from "@material-ui/core";
+import { Box, Button, Dialog, Divider, IconButton, TextField } from "@mui/material";
 import { useDispatch } from "../../../store";
 import * as yup from "yup";
 import { Formik, FieldArray } from "formik";

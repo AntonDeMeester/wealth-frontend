@@ -19,7 +19,7 @@ import {
     TablePagination,
     TableRow,
     Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import PencilAltIcon from "../../../icons/PencilAlt";
 import Scrollbar from "../../Scrollbar";
 // import OrderListBulkActions from "../order/OrderListBulkActions";

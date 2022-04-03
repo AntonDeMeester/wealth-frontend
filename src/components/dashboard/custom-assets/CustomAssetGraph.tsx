@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import type { ApexOptions } from "apexcharts";
 import Chart from "react-apexcharts";
-import { Box, Card, CardHeader, Typography } from "@material-ui/core";
-import type { CardProps } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
+import { Box, Card, CardHeader, Typography } from "@mui/material";
+import type { CardProps } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import moment from "moment";
 import dataService from "src/services/dataService";
 import { formatCurrency } from "src/services/formatService";

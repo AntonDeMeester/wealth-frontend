@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { useRoutes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { CssBaseline, ThemeProvider } from "@material-ui/core";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import "./i18n";
 import RTL from "./components/RTL";
 import SettingsDrawer from "./components/SettingsDrawer";

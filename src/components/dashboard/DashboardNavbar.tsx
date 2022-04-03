@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import PropTypes from "prop-types";
-import { AppBar, Box, IconButton, Toolbar } from "@material-ui/core";
-import { experimentalStyled } from "@material-ui/core/styles";
-import type { AppBarProps } from "@material-ui/core";
+import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
+import { experimentalStyled } from "@mui/material/styles";
+import type { AppBarProps } from "@mui/material";
 import MenuIcon from "../../icons/Menu";
 import AccountPopover from "./AccountPopover";
 import Logo from "../Logo";

@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { Avatar, Box, Button, ButtonBase, Divider, Popover, Typography } from "@material-ui/core";
+import { Avatar, Box, Button, ButtonBase, Divider, Popover, Typography } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import { useSelector } from "src/store";
 import { selectUser } from "src/slices/auth";

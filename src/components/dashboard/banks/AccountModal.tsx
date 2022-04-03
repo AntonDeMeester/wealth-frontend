@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Box, Button, Dialog, TextField, Switch, FormControlLabel } from "@material-ui/core";
+import { Box, Button, Dialog, TextField, Switch, FormControlLabel } from "@mui/material";
 import { useDispatch } from "../../../store";
 import { Account, EditAccount } from "src/types/banking";
 import * as yup from "yup";

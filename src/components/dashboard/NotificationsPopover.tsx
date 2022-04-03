@@ -15,7 +15,7 @@ import {
   Popover,
   Tooltip,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 import BellIcon from '../../icons/Bell';
 import ChatAltIcon from '../../icons/ChatAlt';
 import CreditCardIcon from '../../icons/CreditCard';

@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import PropTypes from "prop-types";
 import { Link as RouterLink } from "react-router-dom";
-import { AppBar, Box, Button, Chip, Divider, IconButton, Link, Toolbar } from "@material-ui/core";
+import { AppBar, Box, Button, Chip, Divider, IconButton, Link, Toolbar } from "@mui/material";
 import MenuIcon from "../icons/Menu";
 import Logo from "./Logo";
 

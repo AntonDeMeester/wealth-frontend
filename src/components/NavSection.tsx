@@ -1,8 +1,8 @@
 import type { FC, ReactNode } from "react";
 import PropTypes from "prop-types";
 import { matchPath } from "react-router-dom";
-import { List, ListSubheader } from "@material-ui/core";
-import type { ListProps } from "@material-ui/core";
+import { List, ListSubheader } from "@mui/material";
+import type { ListProps } from "@mui/material";
 import NavItem from "./NavItem";
 
 interface Item {

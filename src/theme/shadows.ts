@@ -1,4 +1,4 @@
-import type { Shadows } from '@material-ui/core/styles/shadows';
+import type { Shadows } from '@mui/material/styles/shadows';
 
 export const lightShadows: Shadows = [
   'none',

@@ -2,8 +2,8 @@ import { useState } from 'react';
 import type { FC, ReactNode } from 'react';
 import { NavLink as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Box, Button, Collapse, ListItem } from '@material-ui/core';
-import type { ListItemProps } from '@material-ui/core';
+import { Box, Button, Collapse, ListItem } from '@mui/material';
+import type { ListItemProps } from '@mui/material';
 import ChevronDownIcon from '../icons/ChevronDown';
 import ChevronRightIcon from '../icons/ChevronRight';
 

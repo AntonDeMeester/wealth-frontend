@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { FC } from "react";
 import { Helmet } from "react-helmet-async";
-import { Box, Container, Grid, Typography } from "@material-ui/core";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { OverviewTotalBalance } from "../../components/dashboard/overview";
 import useSettings from "../../hooks/useSettings";
 import { useDispatch } from "../../store";

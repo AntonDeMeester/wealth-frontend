@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Avatar, Box, Divider, Drawer, Typography } from "@material-ui/core";
-import type { Theme } from "@material-ui/core";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { Avatar, Box, Divider, Drawer, Typography } from "@mui/material";
+import type { Theme } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import ChartPieIcon from "../../icons/ChartPie";
 import ChartSquareBarIcon from "../../icons/ChartSquareBar";
 import ShoppingBagIcon from "../../icons/ShoppingBag";

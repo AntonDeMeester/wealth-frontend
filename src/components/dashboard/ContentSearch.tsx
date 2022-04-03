@@ -14,7 +14,7 @@ import {
   TextField,
   Tooltip,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 import SearchIcon from '../../icons/Search';
 import XIcon from '../../icons/X';
 import Scrollbar from '../Scrollbar';

@@ -12,7 +12,7 @@ import {
   FormHelperText,
   Grid,
   TextField
-} from '@material-ui/core';
+} from '@mui/material';
 import wait from '../../../utils/wait';
 
 const AccountSecuritySettings: FC = (props) => (

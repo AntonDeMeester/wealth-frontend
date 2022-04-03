@@ -7,7 +7,7 @@ import {
   IconButton,
   Menu,
   MenuItem
-} from '@material-ui/core';
+} from '@mui/material';
 import ArchiveIcon from '../icons/Archive';
 import DocumentTextIcon from '../icons/DocumentText';
 import DotsHorizontalIcon from '../icons/DotsHorizontal';

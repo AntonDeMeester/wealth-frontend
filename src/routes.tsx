@@ -1,5 +1,4 @@
 import { Suspense, lazy } from "react";
-import type { PartialRouteObject } from "react-router";
 import AuthGuard from "./components/AuthGuard";
 import DashboardLayout from "./components/dashboard/DashboardLayout";
 import GuestGuard from "./components/GuestGuard";
@@ -15,10 +14,7 @@ const Loadable = (Component) => (props) =>
 // Authentication pages
 
 const Login = Loadable(lazy(() => import("./pages/authentication/Login")));
-const PasswordRecovery = Loadable(lazy(() => import("./pages/authentication/PasswordRecovery")));
-const PasswordReset = Loadable(lazy(() => import("./pages/authentication/PasswordReset")));
 const Register = Loadable(lazy(() => import("./pages/authentication/Register")));
-const VerifyCode = Loadable(lazy(() => import("./pages/authentication/VerifyCode")));
 
 // Dashboard pages
 
@@ -28,7 +24,7 @@ const Banks = Loadable(lazy(() => import("./pages/dashboard/Banks")));
 const Stocks = Loadable(lazy(() => import("./pages/dashboard/Stocks")));
 const CustomAssets =Loadable(lazy(() =>import("./pages/dashboard/CustomAssets")));
 
-const routes: PartialRouteObject[] = [
+const routes = [
     {
         path: "auth",
         children: [
@@ -45,14 +41,6 @@ const routes: PartialRouteObject[] = [
                 element: <Login />,
             },
             {
-                path: "password-recovery",
-                element: <PasswordRecovery />,
-            },
-            {
-                path: "password-reset",
-                element: <PasswordReset />,
-            },
-            {
                 path: "register",
                 element: (
                     <GuestGuard>
@@ -63,10 +51,6 @@ const routes: PartialRouteObject[] = [
             {
                 path: "register-unguarded",
                 element: <Register />,
-            },
-            {
-                path: "verify-code",
-                element: <VerifyCode />,
             },
         ],
     },
@@ -79,7 +63,7 @@ const routes: PartialRouteObject[] = [
         ),
         children: [
             {
-                path: "/",
+                path: "",
                 element: <Overview />,
             },
             {

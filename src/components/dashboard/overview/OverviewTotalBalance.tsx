@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import numeral from "numeral";
-import { Card, CardContent, CardHeader, Typography } from "@material-ui/core";
+import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 
 interface OverviewTotalBalanceProps {
     totalAmount: number;

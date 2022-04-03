@@ -10,7 +10,7 @@ import {
     Grid,
     Link,
     Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { StockGraph, StockTable } from "../../components/dashboard/stocks";
 import useSettings from "../../hooks/useSettings";
 import ChevronRightIcon from "../../icons/ChevronRight";

@@ -13,7 +13,7 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 
 interface Message {
   id: string;

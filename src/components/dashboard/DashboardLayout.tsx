@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { FC, ReactNode } from "react";
 import { Outlet } from "react-router-dom";
-import { experimentalStyled } from "@material-ui/core/styles";
+import { experimentalStyled } from "@mui/material/styles";
 import DashboardNavbar from "./DashboardNavbar";
 import DashboardSidebar from "./DashboardSidebar";
 

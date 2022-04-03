@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Box, Card, CardContent, Container, Divider, Link, Typography } from "@material-ui/core";
+import { Box, Card, CardContent, Container, Divider, Link, Typography } from "@mui/material";
 import { Login as LoginComponent } from "../../components/authentication/login";
 import Logo from "../../components/Logo";
 import useAuth from "../../hooks/useAuth";

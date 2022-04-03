@@ -19,7 +19,7 @@ import {
     Switch,
     TextField,
     Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import wait from "../../../utils/wait";
 import countries from "./countries";
 

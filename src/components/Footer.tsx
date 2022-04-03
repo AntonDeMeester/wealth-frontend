@@ -10,8 +10,8 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography
-} from '@material-ui/core';
-import { alpha } from '@material-ui/core/styles';
+} from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import MinusIcon from '../icons/Minus';
 import Logo from './Logo';
 

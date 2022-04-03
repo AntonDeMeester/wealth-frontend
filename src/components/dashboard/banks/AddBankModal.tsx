@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Box, Button, Dialog, TextField } from "@material-ui/core";
+import { Box, Button, Dialog, TextField } from "@mui/material";
 import * as yup from "yup";
 import { Formik } from "formik";
 import bankService from "src/services/bankService";

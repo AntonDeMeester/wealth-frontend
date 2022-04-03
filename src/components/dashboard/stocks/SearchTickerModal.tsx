@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useState } from "react";
-import { Box, Button, Dialog, TextField } from "@material-ui/core";
+import { Box, Button, Dialog, TextField } from "@mui/material";
 import { TickerSearchItem } from "src/types/stocks";
 import stockService from "src/services/stockService";
 import * as _ from "lodash";

@@ -9,7 +9,7 @@ import {
   MenuItem,
   Popover,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 
 const languageOptions = {
   en: {
