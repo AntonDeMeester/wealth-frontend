@@ -173,7 +173,7 @@ const AccountGeneralSettings: FC = (props) => {
                                         </Grid>
                                         <Grid item md={6} xs={12}>
                                             <Autocomplete
-                                                getOptionLabel={(option): string => option.text}
+                                                getOptionLabel={(option): string => typeof option === 'string' ? option : option.text}
                                                 options={countries}
                                                 renderInput={(params): JSX.Element => (
                                                     <TextField
