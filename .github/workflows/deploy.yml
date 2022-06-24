@@ -17,7 +17,7 @@ jobs:
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   aws-region: eu-west-1
             - name: Build React App
-              run: npm ci && npm run build
+              run: npm ci --legacy-peer-deps && npm run build
             - name: Deploy app build to S3 bucket
               run: aws s3 sync ./build/ s3://wealth.illuminatus.be --delete
             - name: Invalidate current CloudFront
