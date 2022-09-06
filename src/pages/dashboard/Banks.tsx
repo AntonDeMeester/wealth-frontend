@@ -13,6 +13,10 @@ import { useLocation } from "react-router";
 import bankService from "src/services/bankService";
 import { useDebounceSelector } from "src/utils/debouncedSelector";
 import MonthSelector from "src/components/shared/MonthSelector";
+import {
+    usePlaidLink,
+    PlaidLinkOptions
+  } from 'react-plaid-link';
 
 const Banks: FC = () => {
     const location = useLocation();
@@ -49,6 +53,19 @@ const Banks: FC = () => {
     const closeBankModal = () => {
         setTinkModalOpen(false);
     };
+
+    const config: PlaidLinkOptions = {
+        onSuccess: (public_token, metadata) => {},
+        onExit: (err, metadata) => {},
+        onEvent: (eventName, metadata) => {},
+        token: 'link-sandbox-5c5f53a6-86a4-4501-a270-16408fc1915d',
+    };
+    const { open, ready } = usePlaidLink(config);
+    useEffect(() => {
+        if (ready) {
+          open();
+        }
+      }, [ready, open]);
 
     return (
         <>
@@ -95,6 +112,9 @@ const Banks: FC = () => {
                                 size="large"
                             >
                                 Add Bank
+                            </Button>
+                            <Button >
+                                Add bank via Plaid
                             </Button>
                         </Grid>
                     </Grid>
